@@ -172,7 +172,7 @@ class _Auth3ForgotPasswordWidgetState extends State<Auth3ForgotPasswordWidget>
                                         ),
                                       ),
                                       Text(
-                                        'flow.io',
+                                        'FriendSpeak',
                                         style: FlutterFlowTheme.of(context)
                                             .displaySmall
                                             .override(

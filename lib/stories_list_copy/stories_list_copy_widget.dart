@@ -2,6 +2,7 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -51,7 +52,7 @@ class _StoriesListCopyWidgetState extends State<StoriesListCopyWidget> {
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primary,
-          automaticallyImplyLeading: false,
+          automaticallyImplyLeading: true,
           title: Text(
             'Find People\'s Stories',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
@@ -70,7 +71,7 @@ class _StoriesListCopyWidgetState extends State<StoriesListCopyWidget> {
           child: StreamBuilder<List<UserStoriesRecord>>(
             stream: queryUserStoriesRecord(
               queryBuilder: (userStoriesRecord) =>
-                  userStoriesRecord.whereIn('name', widget!.matchedStories),
+                  userStoriesRecord.whereIn('doc_id', widget!.matchedStories),
             ),
             builder: (context, snapshot) {
               // Customize what your widget looks like when it's loading.
@@ -136,21 +137,40 @@ class _StoriesListCopyWidgetState extends State<StoriesListCopyWidget> {
                                     ),
                                   ),
                                 ),
-                                Flexible(
+                                Expanded(
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        12.0, 0.0, 0.0, 0.0),
-                                    child: Text(
-                                      valueOrDefault<String>(
-                                        widget!.matchedStories?.first,
-                                        'o',
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            letterSpacing: 0.0,
+                                        12.0, 0.0, 12.0, 0.0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          columnUserStoriesRecord.name,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Readex Pro',
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
+                                        AutoSizeText(
+                                          columnUserStoriesRecord.story
+                                              .maybeHandleOverflow(
+                                            maxChars: 50,
+                                            replacement: '…',
                                           ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Readex Pro',
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),

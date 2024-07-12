@@ -11,6 +11,9 @@ function createOpenAIChatGPTGroup() {
 }
 
 async function _sendFullPromptCall(context, ffVariables) {
+  if (!context.auth) {
+    return _unauthenticatedResponse;
+  }
   var apiKey = ffVariables["apiKey"];
   var prompt = ffVariables["prompt"];
   const openAIChatGPTGroup = createOpenAIChatGPTGroup();

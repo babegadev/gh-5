@@ -90,32 +90,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         ),
         FFRoute(
           name: 'auth_3_Create',
-          path: '/auth3Create',
+          path: '/register',
           builder: (context, params) => Auth3CreateWidget(),
         ),
         FFRoute(
           name: 'auth_3_Login',
-          path: '/auth3Login',
+          path: '/login',
           builder: (context, params) => Auth3LoginWidget(),
         ),
         FFRoute(
-          name: 'auth_3_phone',
-          path: '/auth3Phone',
-          builder: (context, params) => Auth3PhoneWidget(),
-        ),
-        FFRoute(
-          name: 'auth_3_verifyPhone',
-          path: '/auth3VerifyPhone',
-          builder: (context, params) => Auth3VerifyPhoneWidget(
-            phoneNumber: params.getParam(
-              'phoneNumber',
-              ParamType.String,
-            ),
-          ),
-        ),
-        FFRoute(
           name: 'auth_3_ForgotPassword',
-          path: '/auth3ForgotPassword',
+          path: '/forgot-password',
           builder: (context, params) => Auth3ForgotPasswordWidget(),
         ),
         FFRoute(
@@ -125,13 +110,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         ),
         FFRoute(
           name: 'HomePage',
-          path: '/homePage',
+          path: '/home',
           builder: (context, params) => HomePageWidget(),
         ),
         FFRoute(
-          name: 'StoriesList',
-          path: '/storiesList',
-          builder: (context, params) => StoriesListWidget(
+          name: 'MatchingStories',
+          path: '/matchingStories',
+          builder: (context, params) => MatchingStoriesWidget(
             matchedStories: params.getParam<String>(
               'matchedStories',
               ParamType.String,
@@ -190,11 +175,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => UploadStoryWidget(),
         ),
         FFRoute(
-          name: 'MatchRequest',
-          path: '/matchRequest',
-          builder: (context, params) => MatchRequestWidget(),
-        ),
-        FFRoute(
           name: 'ChatTemporary',
           path: '/chatTemporary',
           builder: (context, params) => ChatTemporaryWidget(),
@@ -219,6 +199,28 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'PersonalStory',
           path: '/personalStory',
           builder: (context, params) => PersonalStoryWidget(),
+        ),
+        FFRoute(
+          name: 'StoriesRequest',
+          path: '/storiesRequest',
+          builder: (context, params) => StoriesRequestWidget(
+            matchedStories: params.getParam<String>(
+              'matchedStories',
+              ParamType.String,
+              isList: true,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'StoriesSent',
+          path: '/storiesSent',
+          builder: (context, params) => StoriesSentWidget(
+            matchedStories: params.getParam<String>(
+              'matchedStories',
+              ParamType.String,
+              isList: true,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       observers: [routeObserver],
@@ -390,7 +392,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
-            return '/auth3Create';
+            return '/register';
           }
           return null;
         },

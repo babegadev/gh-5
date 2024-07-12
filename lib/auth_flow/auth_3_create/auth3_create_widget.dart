@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -32,6 +33,9 @@ class _Auth3CreateWidgetState extends State<Auth3CreateWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => Auth3CreateModel());
+
+    _model.nameTextController ??= TextEditingController();
+    _model.nameFocusNode ??= FocusNode();
 
     _model.emailAddressTextController ??= TextEditingController();
     _model.emailAddressFocusNode ??= FocusNode();
@@ -176,7 +180,7 @@ class _Auth3CreateWidgetState extends State<Auth3CreateWidget>
                                         ),
                                       ),
                                       Text(
-                                        'flow.io',
+                                        'FriendSpeak',
                                         style: FlutterFlowTheme.of(context)
                                             .displaySmall
                                             .override(
@@ -226,6 +230,92 @@ class _Auth3CreateWidgetState extends State<Auth3CreateWidget>
                                         child: Container(
                                           width: double.infinity,
                                           child: TextFormField(
+                                            controller:
+                                                _model.nameTextController,
+                                            focusNode: _model.nameFocusNode,
+                                            autofocus: true,
+                                            autofillHints: [AutofillHints.name],
+                                            obscureText: false,
+                                            decoration: InputDecoration(
+                                              labelText:
+                                                  'Nickname (Don\'t use your real name)',
+                                              labelStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            'Readex Pro',
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                              enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryBackground,
+                                                  width: 2.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(12.0),
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
+                                                  width: 2.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(12.0),
+                                              ),
+                                              errorBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .error,
+                                                  width: 2.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(12.0),
+                                              ),
+                                              focusedErrorBorder:
+                                                  OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .error,
+                                                  width: 2.0,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(12.0),
+                                              ),
+                                              filled: true,
+                                              fillColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                            ),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Readex Pro',
+                                                  letterSpacing: 0.0,
+                                                ),
+                                            keyboardType:
+                                                TextInputType.emailAddress,
+                                            cursorColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
+                                            validator: _model
+                                                .nameTextControllerValidator
+                                                .asValidator(context),
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 16.0),
+                                        child: Container(
+                                          width: double.infinity,
+                                          child: TextFormField(
                                             controller: _model
                                                 .emailAddressTextController,
                                             focusNode:
@@ -236,7 +326,7 @@ class _Auth3CreateWidgetState extends State<Auth3CreateWidget>
                                             ],
                                             obscureText: false,
                                             decoration: InputDecoration(
-                                              labelText: 'Email',
+                                              labelText: 'Email (Not Shared)',
                                               labelStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .labelMedium
@@ -526,7 +616,7 @@ class _Auth3CreateWidgetState extends State<Auth3CreateWidget>
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(1.0, -1.0),
+                                            AlignmentDirectional(0.0, 0.0),
                                         child: Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
@@ -554,15 +644,21 @@ class _Auth3CreateWidgetState extends State<Auth3CreateWidget>
                                               final user = await authManager
                                                   .createAccountWithEmail(
                                                 context,
-                                                _model
-                                                    .emailAddressTextController
-                                                    .text,
+                                                _model.nameTextController.text,
                                                 _model.passwordTextController
                                                     .text,
                                               );
                                               if (user == null) {
                                                 return;
                                               }
+
+                                              await UsersRecord.collection
+                                                  .doc(user.uid)
+                                                  .update(createUsersRecordData(
+                                                    displayName: _model
+                                                        .nameTextController
+                                                        .text,
+                                                  ));
 
                                               context.goNamedAuth(
                                                   'HomePage', context.mounted);
@@ -600,164 +696,71 @@ class _Auth3CreateWidgetState extends State<Auth3CreateWidget>
                                       ),
 
                                       // You will have to add an action on this rich text to go to your login page.
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 12.0, 0.0, 12.0),
-                                        child: InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            context.pushNamed(
-                                              'auth_3_Login',
-                                              extra: <String, dynamic>{
-                                                kTransitionInfoKey:
-                                                    TransitionInfo(
-                                                  hasTransition: true,
-                                                  transitionType:
-                                                      PageTransitionType.fade,
-                                                  duration:
-                                                      Duration(milliseconds: 0),
-                                                ),
-                                              },
-                                            );
-                                          },
-                                          child: RichText(
-                                            textScaler: MediaQuery.of(context)
-                                                .textScaler,
-                                            text: TextSpan(
-                                              children: [
-                                                TextSpan(
-                                                  text:
-                                                      'Already have an account? ',
-                                                  style: TextStyle(),
-                                                ),
-                                                TextSpan(
-                                                  text: 'Sign In here',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                        fontSize: 16.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                      ),
-                                                )
-                                              ],
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelLarge
-                                                      .override(
-                                                        fontFamily:
-                                                            'Readex Pro',
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Divider(
-                                        height: 20.0,
-                                        thickness: 1.0,
-                                        color: FlutterFlowTheme.of(context)
-                                            .alternate,
-                                      ),
-
-                                      // You will have to add an action on this rich text to go to your login page.
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 12.0, 0.0, 12.0),
-                                        child: RichText(
-                                          textScaler:
-                                              MediaQuery.of(context).textScaler,
-                                          text: TextSpan(
-                                            children: [
-                                              TextSpan(
-                                                text: 'Additional options:',
-                                                style: TextStyle(),
-                                              )
-                                            ],
-                                            style: FlutterFlowTheme.of(context)
-                                                .labelLarge
-                                                .override(
-                                                  fontFamily: 'Readex Pro',
-                                                  letterSpacing: 0.0,
-                                                ),
-                                          ),
-                                        ),
-                                      ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(-1.0, -1.0),
-                                        child: FFButtonWidget(
-                                          onPressed: () async {
-                                            context.pushNamed(
-                                              'auth_3_phone',
-                                              extra: <String, dynamic>{
-                                                kTransitionInfoKey:
-                                                    TransitionInfo(
-                                                  hasTransition: true,
-                                                  transitionType:
-                                                      PageTransitionType.fade,
-                                                  duration:
-                                                      Duration(milliseconds: 0),
-                                                ),
-                                              },
-                                            );
-                                          },
-                                          text: 'Continue with Phone',
-                                          icon: Icon(
-                                            Icons.phone_sharp,
-                                            size: 15.0,
-                                          ),
-                                          options: FFButtonOptions(
-                                            width: double.infinity,
-                                            height: 44.0,
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    24.0, 0.0, 24.0, 0.0),
-                                            iconPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 0.0),
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryBackground,
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'Readex Pro',
-                                                      letterSpacing: 0.0,
-                                                    ),
-                                            elevation: 0.0,
-                                            borderSide: BorderSide(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .alternate,
-                                              width: 2.0,
+                                            AlignmentDirectional(0.0, 0.0),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 12.0, 0.0, 12.0),
+                                          child: InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              context.pushNamed(
+                                                'auth_3_Login',
+                                                extra: <String, dynamic>{
+                                                  kTransitionInfoKey:
+                                                      TransitionInfo(
+                                                    hasTransition: true,
+                                                    transitionType:
+                                                        PageTransitionType.fade,
+                                                    duration: Duration(
+                                                        milliseconds: 0),
+                                                  ),
+                                                },
+                                              );
+                                            },
+                                            child: RichText(
+                                              textScaler: MediaQuery.of(context)
+                                                  .textScaler,
+                                              text: TextSpan(
+                                                children: [
+                                                  TextSpan(
+                                                    text:
+                                                        'Already have an account? ',
+                                                    style: TextStyle(),
+                                                  ),
+                                                  TextSpan(
+                                                    text: 'Sign In here',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Readex Pro',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          fontSize: 16.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                                  )
+                                                ],
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelLarge
+                                                        .override(
+                                                          fontFamily:
+                                                              'Readex Pro',
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                              ),
                                             ),
-                                            borderRadius:
-                                                BorderRadius.circular(12.0),
-                                            hoverColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .alternate,
-                                            hoverBorderSide: BorderSide(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .alternate,
-                                              width: 2.0,
-                                            ),
-                                            hoverTextColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primaryText,
-                                            hoverElevation: 3.0,
                                           ),
                                         ),
                                       ),
