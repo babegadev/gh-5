@@ -162,14 +162,14 @@ class _Auth3LoginWidgetState extends State<Auth3LoginWidget>
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 12.0, 0.0),
-                                        child: Icon(
-                                          Icons.flourescent_rounded,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
-                                          size: 44.0,
+                                      ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        child: Image.asset(
+                                          'assets/images/FriendSpeak.png',
+                                          width: 50.0,
+                                          height: 50.0,
+                                          fit: BoxFit.cover,
                                         ),
                                       ),
                                       Text(

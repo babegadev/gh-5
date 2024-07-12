@@ -74,6 +74,13 @@ class FFAppState extends ChangeNotifier {
     _currentSelectedUserRequest = value;
   }
 
+  DocumentReference? _currentlySelectedRequestedUser;
+  DocumentReference? get currentlySelectedRequestedUser =>
+      _currentlySelectedRequestedUser;
+  set currentlySelectedRequestedUser(DocumentReference? value) {
+    _currentlySelectedRequestedUser = value;
+  }
+
   final _userDocQueryManager = FutureRequestManager<UsersRecord>();
   Future<UsersRecord> userDocQuery({
     String? uniqueQueryKey,

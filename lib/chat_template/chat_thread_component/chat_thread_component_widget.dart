@@ -275,7 +275,7 @@ class _ChatThreadComponentWidgetState extends State<ChatThreadComponentWidget> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         FlutterFlowIconButton(
-                          borderColor: FlutterFlowTheme.of(context).alternate,
+                          borderColor: FlutterFlowTheme.of(context).primaryText,
                           borderRadius: 60.0,
                           borderWidth: 1.0,
                           buttonSize: 40.0,
@@ -473,7 +473,7 @@ class _ChatThreadComponentWidgetState extends State<ChatThreadComponentWidget> {
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                           color: FlutterFlowTheme.of(context)
-                                              .alternate,
+                                              .primaryText,
                                           width: 1.0,
                                         ),
                                         borderRadius:
@@ -537,11 +537,11 @@ class _ChatThreadComponentWidgetState extends State<ChatThreadComponentWidget> {
                                     borderWidth: 1.0,
                                     buttonSize: 40.0,
                                     fillColor:
-                                        FlutterFlowTheme.of(context).accent1,
+                                        FlutterFlowTheme.of(context).accent3,
                                     icon: Icon(
                                       Icons.send_rounded,
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
                                       size: 20.0,
                                     ),
                                     onPressed: () async {

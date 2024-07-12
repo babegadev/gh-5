@@ -10,6 +10,34 @@
         },
         {
           "fieldPath": "last_message_time",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "user-stories",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "doc_id",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "userId",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "chats",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "users",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "last_message_time",
           "order": "DESCENDING"
         }
       ]

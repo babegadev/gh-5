@@ -175,11 +175,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => UploadStoryWidget(),
         ),
         FFRoute(
-          name: 'ChatTemporary',
-          path: '/chatTemporary',
-          builder: (context, params) => ChatTemporaryWidget(),
-        ),
-        FFRoute(
           name: 'FindStories',
           path: '/findStories',
           builder: (context, params) => FindStoriesWidget(),
@@ -206,6 +201,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => params.isEmpty
               ? NavBarPage(initialPage: 'RequestsPage')
               : RequestsPageWidget(),
+        ),
+        FFRoute(
+          name: 'HomePageCopy',
+          path: '/homefake',
+          builder: (context, params) => HomePageCopyWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       observers: [routeObserver],

@@ -84,7 +84,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'bertemu',
+      title: 'FriendSpeak: Stories That Empower ',
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -161,7 +161,7 @@ class _NavBarPageState extends State<NavBarPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.ten_k_rounded,
+              Icons.menu_book_outlined,
             ),
             label: '',
             tooltip: '',

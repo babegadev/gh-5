@@ -30,3 +30,22 @@ dynamic convertToJSON(String prompt) {
   // take the prompt and return a JSON with form [{"role": "user", "content": prompt}]
   return json.decode('{"role": "user", "content": "$prompt"}');
 }
+
+String? getInitials(String displayName) {
+  if (displayName.isEmpty) return "";
+
+  // Split the name by spaces
+  List<String> nameParts = displayName.split(' ');
+
+  // Get the first letter of each part
+  String initials = "";
+  for (var part in nameParts) {
+    if (part.isNotEmpty) {
+      initials += part[0].toUpperCase();
+    }
+  }
+
+  print('Initials: $initials'); // Debugging line
+
+  return initials;
+}

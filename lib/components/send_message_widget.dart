@@ -231,57 +231,56 @@ class _SendMessageWidgetState extends State<SendMessageWidget> {
                               color: FlutterFlowTheme.of(context)
                                   .secondaryBackground,
                             ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 12.0, 0.0),
-                                  child: Text(
-                                    'Connect',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Readex Pro',
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondary,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                  ),
-                                ),
-                                InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    await ChatRequestsRecord.collection
-                                        .doc()
-                                        .set(createChatRequestsRecordData(
-                                          requestingUser: currentUserReference,
-                                          requestedUser: FFAppState()
-                                              .currentSelectedUserRequest,
-                                          status: 'pending',
-                                          message: _model
-                                              .fullNameTextController.text,
-                                        ));
-                                    Navigator.pop(context);
-                                    FFAppState().currentSelectedUserRequest =
-                                        null;
-                                    setState(() {});
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                await ChatRequestsRecord.collection
+                                    .doc()
+                                    .set(createChatRequestsRecordData(
+                                      requestingUser: currentUserReference,
+                                      requestedUser: FFAppState()
+                                          .currentSelectedUserRequest,
+                                      status: 'pending',
+                                      message:
+                                          _model.fullNameTextController.text,
+                                    ));
+                                Navigator.pop(context);
+                                FFAppState().currentSelectedUserRequest = null;
+                                setState(() {});
 
-                                    context.pushNamed('RequestsPage');
-                                  },
-                                  child: Icon(
+                                context.pushNamed('RequestsPage');
+                              },
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 12.0, 0.0),
+                                    child: Text(
+                                      'Connect',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Readex Pro',
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondary,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
+                                  ),
+                                  Icon(
                                     Icons.send_rounded,
                                     color:
                                         FlutterFlowTheme.of(context).secondary,
                                     size: 28.0,
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ],

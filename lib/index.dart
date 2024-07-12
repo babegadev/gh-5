@@ -18,10 +18,10 @@ export '/chat_template/image_details/image_details_widget.dart'
     show ImageDetailsWidget;
 export '/user_stories/upload_story/upload_story_widget.dart'
     show UploadStoryWidget;
-export '/chat_temporary/chat_temporary_widget.dart' show ChatTemporaryWidget;
 export '/user_stories/find_stories/find_stories_widget.dart'
     show FindStoriesWidget;
 export '/stories_list_copy/stories_list_copy_widget.dart'
     show StoriesListCopyWidget;
 export '/personal_story/personal_story_widget.dart' show PersonalStoryWidget;
 export '/requests_page/requests_page_widget.dart' show RequestsPageWidget;
+export '/home_page_copy/home_page_copy_widget.dart' show HomePageCopyWidget;

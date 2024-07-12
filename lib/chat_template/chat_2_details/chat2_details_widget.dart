@@ -7,7 +7,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:async';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -140,11 +139,10 @@ class _Chat2DetailsWidgetState extends State<Chat2DetailsWidget> {
                                 width: 44.0,
                                 height: 44.0,
                                 decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context).accent1,
                                   borderRadius: BorderRadius.circular(12.0),
                                   shape: BoxShape.rectangle,
                                   border: Border.all(
-                                    color: FlutterFlowTheme.of(context).primary,
+                                    color: FlutterFlowTheme.of(context).accent3,
                                     width: 2.0,
                                   ),
                                 ),
@@ -179,28 +177,6 @@ class _Chat2DetailsWidgetState extends State<Chat2DetailsWidget> {
                                       fontFamily: 'Readex Pro',
                                       letterSpacing: 0.0,
                                     ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 4.0, 0.0, 0.0),
-                                child: AutoSizeText(
-                                  valueOrDefault<String>(
-                                    conditionalBuilderUsersRecord.email,
-                                    'casper@ghost.io',
-                                  ).maybeHandleOverflow(
-                                    maxChars: 40,
-                                    replacement: '…',
-                                  ),
-                                  minFontSize: 10.0,
-                                  style: FlutterFlowTheme.of(context)
-                                      .labelSmall
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        letterSpacing: 0.0,
-                                      ),
-                                ),
                               ),
                             ],
                           ),

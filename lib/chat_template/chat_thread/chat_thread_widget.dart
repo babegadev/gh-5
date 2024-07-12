@@ -64,7 +64,7 @@ class _ChatThreadWidgetState extends State<ChatThreadWidget> {
                 boxShadow: [
                   BoxShadow(
                     blurRadius: 0.0,
-                    color: FlutterFlowTheme.of(context).alternate,
+                    color: FlutterFlowTheme.of(context).accent3,
                     offset: Offset(
                       0.0,
                       1.0,
@@ -110,11 +110,10 @@ class _ChatThreadWidgetState extends State<ChatThreadWidget> {
                             width: 36.0,
                             height: 36.0,
                             decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context).accent1,
                               borderRadius: BorderRadius.circular(12.0),
                               shape: BoxShape.rectangle,
                               border: Border.all(
-                                color: FlutterFlowTheme.of(context).primary,
+                                color: FlutterFlowTheme.of(context).accent3,
                                 width: 2.0,
                               ),
                             ),
@@ -274,7 +273,7 @@ class _ChatThreadWidgetState extends State<ChatThreadWidget> {
               boxShadow: [
                 BoxShadow(
                   blurRadius: 0.0,
-                  color: FlutterFlowTheme.of(context).alternate,
+                  color: FlutterFlowTheme.of(context).secondaryText,
                   offset: Offset(
                     0.0,
                     1.0,
@@ -282,6 +281,9 @@ class _ChatThreadWidgetState extends State<ChatThreadWidget> {
                 )
               ],
               borderRadius: BorderRadius.circular(0.0),
+              border: Border.all(
+                color: FlutterFlowTheme.of(context).secondaryBackground,
+              ),
             ),
             child: Visibility(
               visible: widget!.chatMessagesRef?.user == currentUserReference,
@@ -299,11 +301,10 @@ class _ChatThreadWidgetState extends State<ChatThreadWidget> {
                         width: 36.0,
                         height: 36.0,
                         decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).accent1,
                           borderRadius: BorderRadius.circular(12.0),
                           shape: BoxShape.rectangle,
                           border: Border.all(
-                            color: FlutterFlowTheme.of(context).primary,
+                            color: FlutterFlowTheme.of(context).accent3,
                             width: 2.0,
                           ),
                         ),

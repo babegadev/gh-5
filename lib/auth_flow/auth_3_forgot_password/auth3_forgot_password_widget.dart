@@ -159,16 +159,16 @@ class _Auth3ForgotPasswordWidgetState extends State<Auth3ForgotPasswordWidget>
                                       16.0, 0.0, 16.0, 0.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 12.0, 0.0),
-                                        child: Icon(
-                                          Icons.flourescent_rounded,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
-                                          size: 44.0,
+                                      ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        child: Image.asset(
+                                          'assets/images/FriendSpeak.png',
+                                          width: 50.0,
+                                          height: 50.0,
+                                          fit: BoxFit.cover,
                                         ),
                                       ),
                                       Text(
