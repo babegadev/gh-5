@@ -149,7 +149,7 @@ class _StoriesListCopyWidgetState extends State<StoriesListCopyWidget> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          columnUserStoriesRecord.name,
+                                          'I\'ve always been terrified of water, ever since I almost drowned as a child. Now, at 25, this fear cripples me. Friends invite me to beach trips, but I decline, making up excuses.',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
@@ -163,6 +163,7 @@ class _StoriesListCopyWidgetState extends State<StoriesListCopyWidget> {
                                             maxChars: 50,
                                             replacement: '…',
                                           ),
+                                          maxLines: 5,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(

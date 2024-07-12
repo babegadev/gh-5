@@ -1,11 +1,12 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -79,32 +80,73 @@ class _PersonalStoryWidgetState extends State<PersonalStoryWidget> {
             padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 16.0, 8.0),
             child: FFButtonWidget(
               onPressed: () async {
-                await UserStoriesRecord.collection
-                    .doc()
+                var _shouldSetState = false;
+                _model.userHasExistingStory = await queryUserStoriesRecordOnce(
+                  queryBuilder: (userStoriesRecord) => userStoriesRecord.where(
+                    'userId',
+                    isEqualTo: currentUserReference,
+                  ),
+                  singleRecord: true,
+                ).then((s) => s.firstOrNull);
+                _shouldSetState = true;
+                if (_model.userHasExistingStory != null) {
+                  await _model.userHasExistingStory!.reference.delete();
+                }
+
+                var userStoriesRecordReference =
+                    UserStoriesRecord.collection.doc();
+                await userStoriesRecordReference
                     .set(createUserStoriesRecordData(
-                      name: currentUserDisplayName,
+                  userId: currentUserReference,
+                  story: _model.textController.text,
+                ));
+                _model.createdStory = UserStoriesRecord.getDocumentFromData(
+                    createUserStoriesRecordData(
                       userId: currentUserReference,
                       story: _model.textController.text,
-                    ));
-
-                context.pushNamed(
-                  'MatchingStories',
-                  queryParameters: {
-                    'matchedStories': serializeParam(
-                      List.generate(
-                          random_data.randomInteger(5, 5),
-                          (index) => random_data.randomString(
-                                0,
-                                0,
-                                true,
-                                false,
-                                false,
-                              )),
-                      ParamType.String,
-                      isList: true,
                     ),
-                  }.withoutNulls,
+                    userStoriesRecordReference);
+                _shouldSetState = true;
+                _model.matchingStoriesId = await QueryStoriesCall.call(
+                  query: _model.textController.text,
+                  authToken: currentJwtToken,
                 );
+
+                _shouldSetState = true;
+                if ((_model.matchingStoriesId?.succeeded ?? true)) {
+                  FFAppState().matchedStories = (getJsonField(
+                    (_model.matchingStoriesId?.jsonBody ?? ''),
+                    r'''$.result.ids''',
+                    true,
+                  ) as List)
+                      .map<String>((s) => s.toString())
+                      .toList()!
+                      .toList()
+                      .cast<String>();
+                  setState(() {});
+                } else {
+                  await showDialog(
+                    context: context,
+                    builder: (alertDialogContext) {
+                      return AlertDialog(
+                        title: Text('Error'),
+                        content: Text('Unable to find matching stories'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(alertDialogContext),
+                            child: Text('Ok'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                  if (_shouldSetState) setState(() {});
+                  return;
+                }
+
+                context.pushNamed('MatchingStories');
+
+                if (_shouldSetState) setState(() {});
               },
               text: 'Connect',
               options: FFButtonOptions(

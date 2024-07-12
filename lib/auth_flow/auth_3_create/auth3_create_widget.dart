@@ -299,8 +299,6 @@ class _Auth3CreateWidgetState extends State<Auth3CreateWidget>
                                                   fontFamily: 'Readex Pro',
                                                   letterSpacing: 0.0,
                                                 ),
-                                            keyboardType:
-                                                TextInputType.emailAddress,
                                             cursorColor:
                                                 FlutterFlowTheme.of(context)
                                                     .primary,
@@ -644,7 +642,9 @@ class _Auth3CreateWidgetState extends State<Auth3CreateWidget>
                                               final user = await authManager
                                                   .createAccountWithEmail(
                                                 context,
-                                                _model.nameTextController.text,
+                                                _model
+                                                    .emailAddressTextController
+                                                    .text,
                                                 _model.passwordTextController
                                                     .text,
                                               );

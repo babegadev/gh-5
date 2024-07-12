@@ -233,7 +233,7 @@ class _ChatDetailsOverlayWidgetState extends State<ChatDetailsOverlayWidget> {
                             );
 
                             context.pushNamed(
-                              'chat_2_main',
+                              'ChatMain',
                               extra: <String, dynamic>{
                                 kTransitionInfoKey: TransitionInfo(
                                   hasTransition: true,

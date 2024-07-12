@@ -89,7 +89,7 @@ class _Chat2DetailsWidgetState extends State<Chat2DetailsWidget> {
             ),
             onPressed: () async {
               context.goNamed(
-                'chat_2_main',
+                'ChatMain',
                 extra: <String, dynamic>{
                   kTransitionInfoKey: TransitionInfo(
                     hasTransition: true,

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
@@ -79,14 +80,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? HomePageWidget() : Auth3CreateWidget(),
+          appStateNotifier.loggedIn ? NavBarPage() : Auth3CreateWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => appStateNotifier.loggedIn
-              ? HomePageWidget()
-              : Auth3CreateWidget(),
+          builder: (context, _) =>
+              appStateNotifier.loggedIn ? NavBarPage() : Auth3CreateWidget(),
         ),
         FFRoute(
           name: 'auth_3_Create',
@@ -111,18 +111,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'HomePage',
           path: '/home',
-          builder: (context, params) => HomePageWidget(),
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'HomePage')
+              : HomePageWidget(),
         ),
         FFRoute(
           name: 'MatchingStories',
           path: '/matchingStories',
-          builder: (context, params) => MatchingStoriesWidget(
-            matchedStories: params.getParam<String>(
-              'matchedStories',
-              ParamType.String,
-              isList: true,
-            ),
-          ),
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'MatchingStories')
+              : MatchingStoriesWidget(),
         ),
         FFRoute(
           name: 'chat_2_Details',
@@ -138,9 +136,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'chat_2_main',
-          path: '/chat2Main',
-          builder: (context, params) => Chat2MainWidget(),
+          name: 'ChatMain',
+          path: '/chatMain',
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'ChatMain')
+              : ChatMainWidget(),
         ),
         FFRoute(
           name: 'chat_2_InviteUsers',
@@ -201,26 +201,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => PersonalStoryWidget(),
         ),
         FFRoute(
-          name: 'StoriesRequest',
-          path: '/storiesRequest',
-          builder: (context, params) => StoriesRequestWidget(
-            matchedStories: params.getParam<String>(
-              'matchedStories',
-              ParamType.String,
-              isList: true,
-            ),
-          ),
-        ),
-        FFRoute(
-          name: 'StoriesSent',
-          path: '/storiesSent',
-          builder: (context, params) => StoriesSentWidget(
-            matchedStories: params.getParam<String>(
-              'matchedStories',
-              ParamType.String,
-              isList: true,
-            ),
-          ),
+          name: 'RequestsPage',
+          path: '/requestsPage',
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'RequestsPage')
+              : RequestsPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       observers: [routeObserver],
@@ -341,6 +326,7 @@ class FFParameters {
     ParamType type, {
     bool isList = false,
     List<String>? collectionNamePath,
+    StructBuilder<T>? structBuilder,
   }) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
@@ -359,6 +345,7 @@ class FFParameters {
       type,
       isList,
       collectionNamePath: collectionNamePath,
+      structBuilder: structBuilder,
     );
   }
 }

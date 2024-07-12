@@ -14,7 +14,8 @@ class ChatTemporaryWidget extends StatefulWidget {
   State<ChatTemporaryWidget> createState() => _ChatTemporaryWidgetState();
 }
 
-class _ChatTemporaryWidgetState extends State<ChatTemporaryWidget> {
+class _ChatTemporaryWidgetState extends State<ChatTemporaryWidget>
+    with TickerProviderStateMixin {
   late ChatTemporaryModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -24,6 +25,11 @@ class _ChatTemporaryWidgetState extends State<ChatTemporaryWidget> {
     super.initState();
     _model = createModel(context, () => ChatTemporaryModel());
 
+    _model.tabBarController = TabController(
+      vsync: this,
+      length: 3,
+      initialIndex: 0,
+    )..addListener(() => setState(() {}));
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -63,7 +69,82 @@ class _ChatTemporaryWidgetState extends State<ChatTemporaryWidget> {
           top: true,
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            children: [],
+            children: [
+              Expanded(
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment(0.0, 0),
+                      child: TabBar(
+                        labelColor: FlutterFlowTheme.of(context).primaryText,
+                        unselectedLabelColor:
+                            FlutterFlowTheme.of(context).secondaryText,
+                        labelStyle:
+                            FlutterFlowTheme.of(context).titleMedium.override(
+                                  fontFamily: 'Readex Pro',
+                                  letterSpacing: 0.0,
+                                ),
+                        unselectedLabelStyle: TextStyle(),
+                        indicatorColor: FlutterFlowTheme.of(context).primary,
+                        padding: EdgeInsets.all(4.0),
+                        tabs: [
+                          Tab(
+                            text: 'Page 1',
+                          ),
+                          Tab(
+                            text: 'Example 2',
+                          ),
+                          Tab(
+                            text: 'Example 3',
+                          ),
+                        ],
+                        controller: _model.tabBarController,
+                        onTap: (i) async {
+                          [() async {}, () async {}, () async {}][i]();
+                        },
+                      ),
+                    ),
+                    Expanded(
+                      child: TabBarView(
+                        controller: _model.tabBarController,
+                        children: [
+                          Text(
+                            'Tab View 1',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Readex Pro',
+                                  fontSize: 32.0,
+                                  letterSpacing: 0.0,
+                                ),
+                          ),
+                          Text(
+                            'Tab View 2',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Readex Pro',
+                                  fontSize: 32.0,
+                                  letterSpacing: 0.0,
+                                ),
+                          ),
+                          Text(
+                            'Tab View 3',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Readex Pro',
+                                  fontSize: 32.0,
+                                  letterSpacing: 0.0,
+                                ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),

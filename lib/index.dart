@@ -11,7 +11,7 @@ export '/matching_stories/matching_stories_widget.dart'
     show MatchingStoriesWidget;
 export '/chat_template/chat_2_details/chat2_details_widget.dart'
     show Chat2DetailsWidget;
-export '/chat_template/chat_2_main/chat2_main_widget.dart' show Chat2MainWidget;
+export '/chat_main/chat_main_widget.dart' show ChatMainWidget;
 export '/chat_template/chat_2_invite_users/chat2_invite_users_widget.dart'
     show Chat2InviteUsersWidget;
 export '/chat_template/image_details/image_details_widget.dart'
@@ -24,5 +24,4 @@ export '/user_stories/find_stories/find_stories_widget.dart'
 export '/stories_list_copy/stories_list_copy_widget.dart'
     show StoriesListCopyWidget;
 export '/personal_story/personal_story_widget.dart' show PersonalStoryWidget;
-export '/stories_request/stories_request_widget.dart' show StoriesRequestWidget;
-export '/stories_sent/stories_sent_widget.dart' show StoriesSentWidget;
+export '/requests_page/requests_page_widget.dart' show RequestsPageWidget;
